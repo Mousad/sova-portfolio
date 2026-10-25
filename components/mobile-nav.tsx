@@ -28,31 +28,35 @@ const NAV_ITEMS = [
 
 const PRODUCTS = [
   {
-    
+    title: "Orbit UI Kit",
     category: "DESIGN RESOURCES",
     price: "$19",
-    image: "https://velvetica.store/cdn/shop/files/5_3.webp?v=1792585385&width=352",
+    image:
+      "https://velvetica.store/cdn/shop/files/5_3.webp?v=1792585385&width=352",
     href: "/store",
   },
   {
-   
+    title: "Folio Starter",
     category: "WEB TEMPLATES",
     price: "$29",
-    image: "https://velvetica.store/cdn/shop/files/1_2.webp?v=1792410688&width=832",
+    image:
+      "https://velvetica.store/cdn/shop/files/1_2.webp?v=1792410688&width=832",
     href: "/store",
   },
   {
-  
+    title: "Commerce Blocks",
     category: "CODE RESOURCES",
     price: "$15",
-    image: "https://velvetica.store/cdn/shop/files/4_8920bc4d-226a-4866-b245-63507480be48.webp?v=1792302458&width=832",
+    image:
+      "https://velvetica.store/cdn/shop/files/4_8920bc4d-226a-4866-b245-63507480be48.webp?v=1792302458&width=832",
     href: "/store",
   },
   {
-  
+    title: "Creative Resources",
     category: "CODE RESOURCES",
     price: "$15",
-    image: "https://velvetica.store/cdn/shop/files/8_776edec7-8df7-454b-bfe4-417c60967b5b.webp?v=1792302540&width=832",
+    image:
+      "https://velvetica.store/cdn/shop/files/8_776edec7-8df7-454b-bfe4-417c60967b5b.webp?v=1792302540&width=832",
     href: "/store",
   },
 ];
@@ -76,6 +80,7 @@ export function MobileNav({
 
   const isActive = (href: string) => {
     const target = localized(href);
+
     return (
       pathname === target ||
       pathname.startsWith(`${target}/`)
@@ -97,6 +102,7 @@ export function MobileNav({
     );
 
     observer.observe(footer);
+
     return () => observer.disconnect();
   }, [pathname]);
 
@@ -107,6 +113,7 @@ export function MobileNav({
     };
 
     document.addEventListener("keydown", onKeyDown);
+
     return () =>
       document.removeEventListener("keydown", onKeyDown);
   }, []);
@@ -226,17 +233,17 @@ export function MobileNav({
           {/* رأس القائمة */}
           <div className="flex shrink-0 items-center justify-between border-b border-[#f5f6ef] pb-4">
             <Link
-  href={homeHref}
-  onClick={() => setOpen(false)}
-  tabIndex={open ? 0 : -1}
-  className="flex items-center gap-3"
->
-   <img
-    src="/images/logo.jpg"
-    alt="NAWA STUDIO"
-    className="h-14 w-auto max-w-[150px] object-contain"
-  />
-</Link>
+              href={homeHref}
+              onClick={() => setOpen(false)}
+              tabIndex={open ? 0 : -1}
+              className="flex items-center gap-3"
+            >
+              <img
+                src="/images/logo.jpg"
+                alt="NAWA STUDIO"
+                className="h-14 w-auto max-w-[150px] object-contain"
+              />
+            </Link>
 
             <button
               type="button"
@@ -320,14 +327,14 @@ export function MobileNav({
                 WebkitOverflowScrolling: "touch",
               }}
             >
-            {PRODUCTS.map((product, index) => (
-  <Link
-    key={`${product.title}-${index}`}
-    href={localized(product.href)}
-    onClick={() => setOpen(false)}
-    tabIndex={open ? 0 : -1}
-    className="w-[155px] shrink-0 snap-start overflow-hidden rounded-xl border border-[#e5e5de] bg-white transition-colors hover:border-[#8D9B83]"
-  >
+              {PRODUCTS.map((product) => (
+                <Link
+                  key={product.title}
+                  href={localized(product.href)}
+                  onClick={() => setOpen(false)}
+                  tabIndex={open ? 0 : -1}
+                  className="w-[155px] shrink-0 snap-start overflow-hidden rounded-xl border border-[#e5e5de] bg-white transition-colors hover:border-[#8D9B83]"
+                >
                   <div className="aspect-[4/3] overflow-hidden bg-[#eeeee8]">
                     <img
                       src={product.image}
@@ -399,7 +406,7 @@ export function MobileNav({
             </Link>
           </div>
 
-          {/* المساحة السفلية تستفيد من الفراغ */}
+          {/* المساحة السفلية */}
           <div className="mt-auto shrink-0 pt-6">
             <p className="text-[10px] tracking-[0.18em] text-[#85857d]">
               DESIGN WITH PURPOSE.
