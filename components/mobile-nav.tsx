@@ -145,7 +145,7 @@ export function MobileNav({
         aria-label="Mobile navigation"
         className={[
           "fixed inset-x-4 z-[60] mx-auto max-w-md",
-          "rounded-full border border-[#e5e5de] bg-white/95 p-2",
+          "rounded-[12px] border border-[#e5e5de] bg-white/95 p-1",
           "shadow-[0_8px_35px_rgba(20,20,20,0.10)] backdrop-blur-xl",
           "transition-opacity duration-300 lg:hidden",
           footerVisible || open

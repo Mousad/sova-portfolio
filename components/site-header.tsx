@@ -36,7 +36,7 @@ export function SiteHeader({
   <img
     src="/images/logo.jpg"
     alt="NAWA STUDIO"
-    className="h-15 w-auto max-w-[200px] object-contain"
+    className="h-14 w-auto max-w-[200px] object-contain"
   />
 
 

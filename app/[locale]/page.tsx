@@ -7,6 +7,8 @@ import {
   Download,
 } from "lucide-react";
 
+import { Reveal } from "@/components/Reveal";
+import InstagramShowcase from "@/components/InstagramShowcase";
 import { SiteHeader, TextLink } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ProjectCard } from "@/components/project-card";
@@ -98,16 +100,16 @@ export default async function LocaleHome({
       <SiteHeader locale={locale} />
 
       <main>
-        {/* Hero */}
+        {/* Hero - unchanged */}
         <HeroSection locale={locale} />
- 
+
         {/* SOVA Experience */}
         <section
           dir="rtl"
           className="bg-[#fefefe] px-4 py-10 sm:px-8 sm:py-16 lg:px-12 lg:py-20"
         >
           <div className="mx-auto max-w-[1440px]">
-            <div className="mb-3 sm:mb-9">
+            <Reveal className="mb-3 sm:mb-9">
               <p className="mb-3 text-center text-[10px] tracking-[0.2em] text-[#777b6d]">
                 تفاصيل تصنع الفرق
               </p>
@@ -115,60 +117,110 @@ export default async function LocaleHome({
               <h2 className="text-center text-2xl font-light tracking-tight text-[#171813] sm:text-3xl lg:text-4xl">
                 تجربة SOVA
               </h2>
-            </div>
+            </Reveal>
 
             <div className="grid grid-cols-3 gap-3 sm:gap-3">
-              {features.map((feature) => {
+              {features.map((feature, index) => {
                 const Icon = feature.icon;
 
                 return (
-                  <article
+                  <Reveal
                     key={feature.title}
-                    className="group flex min-h-[155px] flex-col items-center justify-center border border-[#f0f1e9] bg-[#f5f6ef] p-3 text-center transition-colors duration-300 hover:border-[#aab29b] sm:min-h-[195px] sm:p-6 lg:p-7"
+                    delay={index * 0.12}
+                    className="h-full"
                   >
-                    <div className="mb-4 flex size-10 items-center justify-center rounded-full bg-[#737c60] text-white transition-transform duration-300 group-hover:scale-105">
-                      <Icon size={18} strokeWidth={1.5} />
-                    </div>
+                    <article className="group flex h-full min-h-[155px] flex-col items-center justify-center border border-[#f0f1e9] bg-[#f5f6ef] p-3 text-center transition-colors duration-300 hover:border-[#aab29b] sm:min-h-[195px] sm:p-6 lg:p-7">
+                      <div className="mb-4 flex size-10 items-center justify-center rounded-full bg-[#737c60] text-white transition-transform duration-300 group-hover:scale-105">
+                        <Icon size={18} strokeWidth={1.5} />
+                      </div>
 
-                    <h3 className="text-[12px] font-medium text-[#171813] sm:text-base">
-                      {feature.title}
-                    </h3>
+                      <h3 className="text-[12px] font-medium text-[#171813] sm:text-base">
+                        {feature.title}
+                      </h3>
 
-                    <p className="mt-2 max-w-xs text-[10px] leading-4 text-[#696c61] sm:text-sm">
-                      {feature.description}
-                    </p>
-                  </article>
+                      <p className="mt-2 max-w-xs text-[10px] leading-4 text-[#696c61] sm:text-sm">
+                        {feature.description}
+                      </p>
+                    </article>
+                  </Reveal>
                 );
               })}
             </div>
           </div>
         </section>
 
-                <DigitalProductsSection />
+        {/* Digital Products */}
+        <Reveal className="w-full">
+          <DigitalProductsSection />
+        </Reveal>
 
+        {/* Instagram */}
+        <Reveal className="w-full" delay={0.1}>
+          <InstagramShowcase />
+        </Reveal>
 
-        
+        {/* Animation Showcase */}
+        <section
+          dir="ltr"
+          className="w-full bg-white px-4 py-10 sm:px-6 sm:py-14"
+        >
+          <Reveal className="mb-6 text-center" y={20}>
+            <div dir="rtl">
+              <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">
+                كيف تعمل الرسوم المتحركة؟
+              </h2>
+
+              <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-gray-600 sm:text-base">
+                توضيح مرئي لكيفية تحريك العناصر وتغيير خصائصها لإنشاء تأثيرات
+                حركية سلسة وتفاعلات أكثر حيوية داخل واجهات المستخدم.
+              </p>
+            </div>
+          </Reveal>
+
+          <Reveal className="mx-auto w-full max-w-5xl" delay={0.12} y={28}>
+            <figure>
+              <div className="overflow-hidden rounded-xl bg-[#f8f8f4]">
+                <img
+                  src="https://blog-assets.lottiefiles.com/content/images/2026/10/frame-scene.gif"
+                  alt="Animating an object by updating its properties"
+                  loading="lazy"
+                  className="block h-auto w-full object-cover"
+                  width={1200}
+                  height={675}
+                />
+              </div>
+            </figure>
+          </Reveal>
+        </section>
 
         {/* Selected Work */}
         <section className="border-y border-[#deded8] bg-[#fefefe]">
           <div className="mx-auto max-w-[1440px] px-5 py-12 sm:px-8 lg:px-12 lg:py-16">
-            <div className="flex flex-col justify-between gap-8 sm:flex-row sm:items-end">
-              <div>
-                <p className="mb-3 text-[10px] tracking-[0.2em] text-[#777770]">
-                  01 / أعمال مختارة
-                </p>
+            <Reveal>
+              <div className="flex flex-col justify-between gap-8 sm:flex-row sm:items-end">
+                <div>
+                  <p className="mb-3 text-[10px] tracking-[0.2em] text-[#777770]">
+                    01 / أعمال مختارة
+                  </p>
 
-                <h2 className="max-w-xl text-4xl font-light leading-none tracking-[-0.055em] sm:text-6xl">
-                  أشياء صنعتها.
-                </h2>
+                  <h2 className="max-w-xl text-4xl font-light leading-none tracking-[-0.055em] sm:text-6xl">
+                    أشياء صنعتها.
+                  </h2>
+                </div>
+
+                <TextLink href={path("/work")}>كل المشاريع</TextLink>
               </div>
-
-              <TextLink href={path("/work")}>كل المشاريع</TextLink>
-            </div>
+            </Reveal>
 
             <div className="mt-14 grid gap-12 lg:grid-cols-12 lg:gap-x-8 lg:gap-y-20">
-              {projects.map((project) => (
-                <ProjectCard key={project.slug} {...project} />
+              {projects.map((project, index) => (
+                <Reveal
+                  key={project.slug}
+                  delay={index * 0.15}
+                  className="h-full"
+                >
+                  <ProjectCard {...project} />
+                </Reveal>
               ))}
             </div>
           </div>
@@ -177,72 +229,76 @@ export default async function LocaleHome({
         {/* Services */}
         <section className="mx-auto max-w-[1440px] px-5 py-24 sm:px-8 lg:px-12 lg:py-36">
           <div className="grid gap-10 lg:grid-cols-[0.55fr_1fr]">
-            <div>
-              <p className="mb-3 text-[10px] tracking-[0.2em] text-[#777770]">
-                02 / ما أقدمه
-              </p>
+            <Reveal>
+              <div>
+                <p className="mb-3 text-[10px] tracking-[0.2em] text-[#777770]">
+                  02 / ما أقدمه
+                </p>
 
-              <h2 className="max-w-md text-4xl font-light leading-[0.95] tracking-[-0.055em] sm:text-6xl">
-                أصمم المفيد والجميل.
-              </h2>
-            </div>
+                <h2 className="max-w-md text-4xl font-light leading-[0.95] tracking-[-0.055em] sm:text-6xl">
+                  أصمم المفيد والجميل.
+                </h2>
+              </div>
+            </Reveal>
 
             <div className="grid border-t border-[#deded8] sm:grid-cols-2">
-              {services.map((service) => (
-                <div
+              {services.map((service, index) => (
+                <Reveal
                   key={service.number}
-                  className="border-b border-[#deded8] py-7 sm:pr-8"
+                  delay={index * 0.1}
+                  className="h-full"
                 >
-                  <span className="text-[10px] text-[#777770]">
-                    {service.number}
-                  </span>
+                  <div className="h-full border-b border-[#deded8] py-7 sm:pr-8">
+                    <span className="text-[10px] text-[#777770]">
+                      {service.number}
+                    </span>
 
-                  <h3 className="mt-8 text-xl">{service.title}</h3>
+                    <h3 className="mt-8 text-xl">{service.title}</h3>
 
-                  <p className="mt-3 max-w-xs text-sm leading-6 text-[#777770]">
-                    {service.description}
-                  </p>
-                </div>
+                    <p className="mt-3 max-w-xs text-sm leading-6 text-[#777770]">
+                      {service.description}
+                    </p>
+                  </div>
+                </Reveal>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Digital Products — the new section */}
-
         {/* Work Process */}
         <section className="mx-auto max-w-[1440px] px-5 py-24 sm:px-8 lg:px-12 lg:py-36">
           <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
-            <div>
-              <p className="mb-3 text-[10px] tracking-[0.2em] text-[#777770]">
-                04 / طريقة العمل
-              </p>
+            <Reveal>
+              <div>
+                <p className="mb-3 text-[10px] tracking-[0.2em] text-[#777770]">
+                  04 / طريقة العمل
+                </p>
 
-              <h2 className="max-w-sm text-4xl font-light leading-[0.95] tracking-[-0.055em] sm:text-6xl">
-                عملية هادئة، نتائج واضحة.
-              </h2>
-            </div>
+                <h2 className="max-w-sm text-4xl font-light leading-[0.95] tracking-[-0.055em] sm:text-6xl">
+                  عملية هادئة، نتائج واضحة.
+                </h2>
+              </div>
+            </Reveal>
 
             <div className="border-t border-[#deded8]">
               {workSteps.map((step, index) => (
-                <div
-                  key={step}
-                  className="flex items-center justify-between border-b border-[#deded8] py-5"
-                >
-                  <div className="flex items-center gap-5">
-                    <span className="text-[10px] text-[#777770]">
-                      0{index + 1}
-                    </span>
+                <Reveal key={step} delay={index * 0.08}>
+                  <div className="flex items-center justify-between border-b border-[#deded8] py-5">
+                    <div className="flex items-center gap-5">
+                      <span className="text-[10px] text-[#777770]">
+                        0{index + 1}
+                      </span>
 
-                    <h3 className="text-lg">{step}</h3>
+                      <h3 className="text-lg">{step}</h3>
+                    </div>
+
+                    <MoveLeft
+                      size={18}
+                      strokeWidth={1.2}
+                      className="text-[#8b8b84]"
+                    />
                   </div>
-
-                  <MoveLeft
-                    size={18}
-                    strokeWidth={1.2}
-                    className="text-[#8b8b84]"
-                  />
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -250,27 +306,29 @@ export default async function LocaleHome({
 
         {/* Contact CTA */}
         <section className="bg-[#737c60] text-white">
-          <div className="mx-auto flex max-w-[1440px] flex-col justify-between gap-12 px-5 py-20 sm:px-8 lg:flex-row lg:items-end lg:px-12 lg:py-28">
-            <div>
-              <p className="mb-8 text-[10px] text-white/65">
-                لديك فكرة جيدة؟
-              </p>
+          <Reveal y={30}>
+            <div className="mx-auto flex max-w-[1440px] flex-col justify-between gap-12 px-5 py-20 sm:px-8 lg:flex-row lg:items-end lg:px-12 lg:py-28">
+              <div>
+                <p className="mb-8 text-[10px] text-white/65">
+                  لديك فكرة جيدة؟
+                </p>
 
-              <h2 className="max-w-3xl text-5xl font-light leading-[0.95] tracking-[-0.06em] sm:text-7xl">
-                لنبنِ شيئاً
-                <br />
-                <span className="text-white/50">واضحاً معاً.</span>
-              </h2>
+                <h2 className="max-w-3xl text-5xl font-light leading-[0.95] tracking-[-0.06em] sm:text-7xl">
+                  لنبنِ شيئاً
+                  <br />
+                  <span className="text-white/50">واضحاً معاً.</span>
+                </h2>
+              </div>
+
+              <a
+                href="mailto:hello@yourname.design"
+                className="inline-flex items-center gap-3 text-sm text-white/90 transition-opacity hover:opacity-70"
+              >
+                hello@yourname.design
+                <ArrowUpRight size={18} />
+              </a>
             </div>
-
-            <a
-              href="mailto:hello@yourname.design"
-              className="inline-flex items-center gap-3 text-sm text-white/90 transition-opacity hover:opacity-70"
-            >
-              hello@yourname.design
-              <ArrowUpRight size={18} />
-            </a>
-          </div>
+          </Reveal>
         </section>
       </main>
 
