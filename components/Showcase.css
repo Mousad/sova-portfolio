@@ -1,0 +1,66 @@
+
+
+@keyframes reveal-card {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes shell-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes search-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(115, 124, 96, 0);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(115, 124, 96, 0.08);
+  }
+}
+
+@keyframes cursor-blink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+
+.reveal-card {
+  animation: reveal-card 650ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.shell-enter {
+  animation: shell-enter 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.search-pulse {
+  animation: search-pulse 2.8s ease-in-out infinite;
+}
+
+.cursor-blink {
+  animation: cursor-blink 1s steps(1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-card,
+  .shell-enter,
+  .search-pulse,
+  .cursor-blink {
+    animation: none !important;
+  }
+}

@@ -6,7 +6,7 @@ import {
   Palette,
   Download,
 } from "lucide-react";
-
+import Showcase from "@/components/Showcase";
 import { Reveal } from "@/components/Reveal";
 import InstagramShowcase from "@/components/InstagramShowcase";
 import { SiteHeader, TextLink } from "@/components/site-header";
@@ -158,6 +158,11 @@ export default async function LocaleHome({
         <Reveal className="w-full" delay={0.1}>
           <InstagramShowcase />
         </Reveal>
+        <Reveal className="w-full" delay={0.1}>
+           <Showcase />
+        </Reveal>
+
+          
 
         {/* Animation Showcase */}
         <section
