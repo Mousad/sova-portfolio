@@ -4,6 +4,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCart } from "@/components/cart-context";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { useEffect, useState } from "react";
 import {
   Menu,
@@ -80,14 +81,9 @@ export function MobileNav({
 
   const isActive = (href: string) => {
     const target = localized(href);
-
-    return (
-      pathname === target ||
-      pathname.startsWith(`${target}/`)
-    );
+    return pathname === target || pathname.startsWith(`${target}/`);
   };
 
-  // إخفاء شريط التنقل عند ظهور الفوتر
   useEffect(() => {
     const footer = document.querySelector("footer");
 
@@ -102,26 +98,20 @@ export function MobileNav({
     );
 
     observer.observe(footer);
-
     return () => observer.disconnect();
   }, [pathname]);
 
-  // إغلاق القائمة باستخدام Escape
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") setOpen(false);
     };
 
     document.addEventListener("keydown", onKeyDown);
-
-    return () =>
-      document.removeEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  // منع تمرير الصفحة خلف القائمة
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
-
     document.body.style.overflow = open ? "hidden" : "";
 
     return () => {
@@ -129,7 +119,6 @@ export function MobileNav({
     };
   }, [open]);
 
-  // إغلاق القائمة عند تغيير الصفحة
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
@@ -140,12 +129,11 @@ export function MobileNav({
 
   return (
     <>
-      {/* شريط التنقل السفلي */}
       <nav
         aria-label="Mobile navigation"
         className={[
           "fixed inset-x-4 z-[60] mx-auto max-w-md",
-          "rounded-[12px] border border-[#e5e5de] bg-white/95 p-1",
+          "rounded-[12px] border border-border bg-background/95 p-1 text-foreground",
           "shadow-[0_8px_35px_rgba(20,20,20,0.10)] backdrop-blur-xl",
           "transition-opacity duration-300 lg:hidden",
           footerVisible || open
@@ -156,51 +144,53 @@ export function MobileNav({
           bottom: "calc(env(safe-area-inset-bottom, 0px) + 12px)",
         }}
       >
-        <div className="grid grid-cols-3 items-center">
+        <div className="grid grid-cols-4 items-center">
           <button
             type="button"
             onClick={() => setOpen(true)}
             aria-label="فتح القائمة"
             aria-expanded={open}
-            className="flex h-12 items-center justify-center rounded-full text-[#555550]"
+            className="flex h-12 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
           >
-            <Menu size={24} strokeWidth={1.7} />
+            <Menu size={22} strokeWidth={1.7} />
           </button>
 
           <Link
             href={centerHref}
             aria-label={centerLabel}
             className={[
-              "mx-auto flex size-12 items-center justify-center rounded-full",
+              "mx-auto flex size-12 items-center justify-center rounded-full transition-colors",
               isHome
-                ? "bg-[#f1f1eb] text-[#555550]"
+                ? "bg-accent text-foreground"
                 : "bg-[#8D9B83] text-white",
             ].join(" ")}
           >
-            <CenterIcon size={23} strokeWidth={1.7} />
+            <CenterIcon size={22} strokeWidth={1.7} />
           </Link>
 
           <Link
-            href={localized(isHome ? "/about" : "/store")}
-            aria-label={isHome ? "عن الاستوديو" : "المتجر"}
-            className="flex h-12 items-center justify-center rounded-full text-[#555550]"
+            href={localized("/cart")}
+            aria-label={`السلة، ${count} منتجات`}
+            className="relative flex h-12 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
           >
-            {isHome ? (
-              <Info size={23} strokeWidth={1.7} />
-            ) : (
-              <ShoppingBag size={23} strokeWidth={1.7} />
+            <ShoppingBag size={22} strokeWidth={1.7} />
+            {count > 0 && (
+              <span className="absolute right-2 top-1 flex min-w-4 items-center justify-center rounded-full bg-[#8D9B83] px-1 text-[9px] leading-4 text-white">
+                {count > 99 ? "99+" : count}
+              </span>
             )}
           </Link>
+
+          <div className="flex h-12 items-center justify-center">
+            <ThemeToggle />
+          </div>
         </div>
       </nav>
 
-      {/* القائمة الجانبية */}
       <div
         className={[
           "fixed inset-0 z-[80] lg:hidden",
-          open
-            ? "visible"
-            : "invisible pointer-events-none",
+          open ? "visible" : "invisible pointer-events-none",
         ].join(" ")}
         aria-hidden={!open}
       >
@@ -223,15 +213,14 @@ export function MobileNav({
           dir={locale === "ar" ? "rtl" : "ltr"}
           className={[
             "absolute inset-y-0 right-0 flex w-[90%] max-w-[390px] flex-col",
-            "overflow-y-auto bg-[#f7f7f3] px-5",
+            "overflow-y-auto border-l border-border bg-background px-5 text-foreground",
             "pt-[calc(env(safe-area-inset-top,0px)+18px)]",
             "pb-[calc(env(safe-area-inset-bottom,0px)+16px)]",
             "shadow-2xl transition-transform duration-300",
             open ? "translate-x-0" : "translate-x-full",
           ].join(" ")}
         >
-          {/* رأس القائمة */}
-          <div className="flex shrink-0 items-center justify-between border-b border-[#f5f6ef] pb-4">
+          <div className="flex shrink-0 items-center justify-between border-b border-border pb-4">
             <Link
               href={homeHref}
               onClick={() => setOpen(false)}
@@ -250,13 +239,12 @@ export function MobileNav({
               onClick={() => setOpen(false)}
               tabIndex={open ? 0 : -1}
               aria-label="إغلاق القائمة"
-              className="flex size-10 items-center justify-center rounded-full border border-[#deded8] text-[#171717] transition-colors hover:bg-white"
+              className="flex size-10 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:bg-accent"
             >
               <X size={20} />
             </button>
           </div>
 
-          {/* روابط الموقع */}
           <nav className="mt-4 shrink-0">
             <Link
               href={homeHref}
@@ -264,11 +252,11 @@ export function MobileNav({
               tabIndex={open ? 0 : -1}
               aria-current={isHome ? "page" : undefined}
               className={[
-                "flex items-center justify-between border-b border-[#deded8] py-3.5",
+                "flex items-center justify-between border-b border-border py-3.5",
                 "text-lg font-medium transition-colors",
                 isHome
-                  ? "text-[#718269]"
-                  : "text-[#171717] hover:text-[#718269]",
+                  ? "text-[#8D9B83]"
+                  : "text-foreground hover:text-[#8D9B83]",
               ].join(" ")}
             >
               <span>الرئيسية</span>
@@ -287,11 +275,11 @@ export function MobileNav({
                   tabIndex={open ? 0 : -1}
                   aria-current={active ? "page" : undefined}
                   className={[
-                    "flex items-center justify-between border-b border-[#deded8] py-3.5",
+                    "flex items-center justify-between border-b border-border py-3.5",
                     "text-[17px] transition-colors",
                     active
-                      ? "font-medium text-[#718269]"
-                      : "text-[#171717] hover:text-[#718269]",
+                      ? "font-medium text-[#8D9B83]"
+                      : "text-foreground hover:text-[#8D9B83]",
                   ].join(" ")}
                 >
                   <span>{item.label}</span>
@@ -301,10 +289,9 @@ export function MobileNav({
             })}
           </nav>
 
-          {/* المنتجات الرقمية */}
           <section className="mt-5 shrink-0">
             <div className="mb-3 flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-[#171717]">
+              <h3 className="text-sm font-semibold text-foreground">
                 منتجات رقمية مختارة
               </h3>
 
@@ -312,7 +299,7 @@ export function MobileNav({
                 href={localized("/store")}
                 onClick={() => setOpen(false)}
                 tabIndex={open ? 0 : -1}
-                className="flex items-center gap-1 text-xs text-[#718269]"
+                className="flex items-center gap-1 text-xs text-[#8D9B83]"
               >
                 عرض الكل
                 <ArrowUpLeft size={15} />
@@ -333,9 +320,9 @@ export function MobileNav({
                   href={localized(product.href)}
                   onClick={() => setOpen(false)}
                   tabIndex={open ? 0 : -1}
-                  className="w-[155px] shrink-0 snap-start overflow-hidden rounded-xl border border-[#e5e5de] bg-white transition-colors hover:border-[#8D9B83]"
+                  className="w-[155px] shrink-0 snap-start overflow-hidden rounded-xl border border-border bg-card transition-colors hover:border-[#8D9B83]"
                 >
-                  <div className="aspect-[4/3] overflow-hidden bg-[#eeeee8]">
+                  <div className="aspect-[4/3] overflow-hidden bg-secondary">
                     <img
                       src={product.image}
                       alt={product.title}
@@ -345,23 +332,23 @@ export function MobileNav({
                   </div>
 
                   <div className="p-3">
-                    <p className="truncate text-[9px] tracking-wide text-[#85857d]">
+                    <p className="truncate text-[9px] tracking-wide text-muted-foreground">
                       {product.category}
                     </p>
 
-                    <h4 className="mt-1.5 truncate text-xs font-medium text-[#171717]">
+                    <h4 className="mt-1.5 truncate text-xs font-medium text-card-foreground">
                       {product.title}
                     </h4>
 
                     <div className="mt-3 flex items-center justify-between">
-                      <span className="text-sm font-medium text-[#718269]">
+                      <span className="text-sm font-medium text-[#8D9B83]">
                         {product.price}
                       </span>
 
                       <ChevronLeft
                         size={16}
                         strokeWidth={1.5}
-                        className="text-[#77776f]"
+                        className="text-muted-foreground"
                       />
                     </div>
                   </div>
@@ -370,20 +357,19 @@ export function MobileNav({
             </div>
           </section>
 
-          {/* السلة والتواصل */}
           <div className="mt-5 grid shrink-0 grid-cols-2 gap-3">
             <Link
               href={localized("/cart")}
               onClick={() => setOpen(false)}
               tabIndex={open ? 0 : -1}
-              className="flex min-w-0 items-center justify-between gap-2 rounded-xl border border-[#deded8] bg-white px-3 py-3.5 transition-colors hover:border-[#8D9B83]"
+              className="flex min-w-0 items-center justify-between gap-2 rounded-xl border border-border bg-card px-3 py-3.5 transition-colors hover:border-[#8D9B83]"
             >
               <span className="flex min-w-0 items-center gap-2 text-sm">
                 <ShoppingBag size={18} className="shrink-0" />
                 <span className="truncate">سلة التسوق</span>
               </span>
 
-              <span className="shrink-0 rounded-full bg-[#e9ece5] px-2 py-1 text-xs text-[#718269]">
+              <span className="shrink-0 rounded-full bg-accent px-2 py-1 text-xs text-foreground">
                 {count}
               </span>
             </Link>
@@ -392,23 +378,15 @@ export function MobileNav({
               href={localized("/contact")}
               onClick={() => setOpen(false)}
               tabIndex={open ? 0 : -1}
-              className="flex min-w-0 items-center justify-between gap-2 rounded-xl bg-[#171717] px-3 py-3.5 text-white transition-colors hover:bg-[#30302c]"
+              className="flex min-w-0 items-center justify-between gap-2 rounded-xl bg-foreground px-3 py-3.5 text-background transition-colors hover:opacity-85"
             >
-              <span className="truncate text-sm">
-                ابدأ مشروعك
-              </span>
-
-              <ArrowUpLeft
-                size={18}
-                strokeWidth={1.5}
-                className="shrink-0"
-              />
+              <span className="truncate text-sm">ابدأ مشروعك</span>
+              <ArrowUpLeft size={18} strokeWidth={1.5} className="shrink-0" />
             </Link>
           </div>
 
-          {/* المساحة السفلية */}
           <div className="mt-auto shrink-0 pt-6">
-            <p className="text-[10px] tracking-[0.18em] text-[#85857d]">
+            <p className="text-[10px] tracking-[0.18em] text-muted-foreground">
               DESIGN WITH PURPOSE.
             </p>
           </div>

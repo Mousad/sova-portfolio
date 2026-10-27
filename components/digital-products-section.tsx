@@ -9,32 +9,29 @@ export function DigitalProductsSection() {
   return (
     <section
       dir="rtl"
-      className="overflow-hidden border-y border-[#deded8] bg-[#fefefe]"
+      className="overflow-hidden border-y border-border bg-background text-foreground transition-colors duration-300"
     >
       <div className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-28">
         {/* Section heading */}
-        <div className="flex items-end justify-between gap-4">
-        
-<div className="flex flex-col items-center justify-center text-center">
-  <p className="mb-4 text-[10px] tracking-[0.25em] text-[#737c60]">
-    SOVA DIGITAL STORE
-  </p>
+        <div className="relative flex items-end justify-between gap-4">
+          <div className="mx-auto flex flex-col items-center justify-center text-center">
+            <p className="mb-4 text-[10px] tracking-[0.25em] text-[#8D9B83]">
+              SOVA DIGITAL STORE
+            </p>
 
-  <h2 className="max-w-2xl text-3xl font-light leading-tight tracking-[-0.055em] sm:text-5xl lg:text-6xl">
-    اكتشف منتجاتنا الرقمية.
-  </h2>
+            <h2 className="max-w-2xl text-3xl font-light leading-tight tracking-[-0.055em] text-foreground sm:text-5xl lg:text-6xl">
+              اكتشف منتجاتنا الرقمية.
+            </h2>
 
-  <p className="mt-4 max-w-lg text-sm leading-7 text-[#777770] sm:text-base">
-    قوالب وأدوات رقمية مختارة بعناية لتصميم أفضل، وتطوير أسرع، ونتائج أكثر احترافية.
-  </p>
-
- 
-</div>
-
+            <p className="mt-4 max-w-lg text-sm leading-7 text-muted-foreground sm:text-base">
+              قوالب وأدوات رقمية مختارة بعناية لتصميم أفضل، وتطوير أسرع،
+              ونتائج أكثر احترافية.
+            </p>
+          </div>
 
           <Link
             href="/ar/store"
-            className="hidden shrink-0 items-center gap-2 text-sm text-[#34372d] transition-colors hover:text-[#737c60] sm:inline-flex"
+            className="absolute left-0 top-0 hidden shrink-0 items-center gap-2 text-sm text-foreground transition-colors hover:text-[#8D9B83] sm:inline-flex"
           >
             كل المنتجات
             <ArrowLeft size={16} strokeWidth={1.5} />
@@ -64,9 +61,6 @@ export function DigitalProductsSection() {
             ))}
           </div>
         </div>
-
-        {/* Mobile footer */}
-       
       </div>
     </section>
   );

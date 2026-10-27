@@ -1,6 +1,6 @@
 
 import Link from 'next/link'
-import { ArrowUpLeft, Plus } from 'lucide-react'
+import { Plus } from 'lucide-react'
 
 const footerGroups = [
   {
@@ -108,17 +108,17 @@ export function SiteFooter() {
   return (
     <footer
       dir="rtl"
-      className="border-t border-[#e0e2d8] bg-[#f5f6ef] text-[#171813]"
+      className="border-t border-border bg-secondary/40 text-foreground transition-colors duration-300"
     >
       <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
         {/* Newsletter */}
-        <div className="grid gap-5 border-b border-[#e0e2d8] py-7 sm:py-9 lg:grid-cols-2 lg:items-center lg:gap-12">
+        <div className="grid gap-5 border-b border-border py-7 sm:py-9 lg:grid-cols-2 lg:items-center lg:gap-12">
           <div>
-            <h2 className="text-2xl font-light leading-tight sm:text-3xl">
+            <h2 className="text-2xl font-light leading-tight text-foreground sm:text-3xl">
               أفكار تستحق أن تصلك.
             </h2>
 
-            <p className="mt-2 max-w-md text-xs leading-6 text-[#696c61] sm:text-sm">
+            <p className="mt-2 max-w-md text-xs leading-6 text-muted-foreground sm:text-sm">
               اشترك ببريدك الإلكتروني ليصلك كل جديد عن التصميم والبرمجة
               والمنتجات الرقمية.
             </p>
@@ -131,12 +131,12 @@ export function SiteFooter() {
           >
             <label
               htmlFor="footer-email"
-              className="mb-2 block text-xs font-medium text-[#42463a]"
+              className="mb-2 block text-xs font-medium text-foreground"
             >
               بريدك الإلكتروني
             </label>
 
-            <div className="flex items-center gap-3 border-b border-[#b8bdab] transition-colors focus-within:border-[#59664a]">
+            <div className="flex items-center gap-3 border-b border-border transition-colors focus-within:border-[#8D9B83]">
               <input
                 id="footer-email"
                 name="email"
@@ -144,18 +144,18 @@ export function SiteFooter() {
                 autoComplete="email"
                 placeholder="name@example.com"
                 required
-                className="min-w-0 flex-1 bg-transparent py-3 text-sm text-[#171813] outline-none placeholder:text-[#999d90]"
+                className="min-w-0 flex-1 bg-transparent py-3 text-sm text-foreground outline-none placeholder:text-muted-foreground"
               />
 
               <button
                 type="submit"
-                className="shrink-0 rounded-[6px] bg-[#282828] px-4 py-2 text-xs font-medium text-[#f5f6ef] transition-colors hover:bg-[#737c60]"
+                className="shrink-0 rounded-[6px] bg-foreground px-4 py-2 text-xs font-medium text-background transition-colors hover:bg-[#8D9B83] hover:text-white"
               >
                 اشتراك
               </button>
             </div>
 
-            <p className="mt-2 text-[10px] leading-5 text-[#858879]">
+            <p className="mt-2 text-[10px] leading-5 text-muted-foreground">
               لن نرسل لك إلا التحديثات والمحتوى المفيد.
             </p>
           </form>
@@ -166,23 +166,23 @@ export function SiteFooter() {
           {footerGroups.map((group) => (
             <details
               key={group.title}
-              className="group border-b border-[#e0e2d8] last:border-b sm:border-0"
+              className="group border-b border-border last:border-b sm:border-0"
             >
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-2 py-3 text-xs font-semibold text-[#292b24] [&::-webkit-details-marker]:hidden sm:mb-3 sm:cursor-default sm:py-0">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-2 py-3 text-xs font-semibold text-foreground [&::-webkit-details-marker]:hidden sm:mb-3 sm:cursor-default sm:py-0">
                 <span>{group.title}</span>
 
                 <Plus
                   size={14}
-                  className="shrink-0 text-[#777b6d] transition-transform group-open:rotate-45 sm:hidden"
+                  className="shrink-0 text-muted-foreground transition-transform group-open:rotate-45 sm:hidden"
                 />
               </summary>
 
-              <div className="flex flex-col items-start gap-3 pb-4 text-xs text-[#696c61] sm:pb-0">
+              <div className="flex flex-col items-start gap-3 pb-4 text-xs text-muted-foreground sm:pb-0">
                 {group.links.map((link) => (
                   <Link
                     key={link.href + link.label}
                     href={link.href}
-                    className="transition-colors hover:text-[#171813]"
+                    className="transition-colors duration-200 hover:text-[#8D9B83]"
                   >
                     {link.label}
                   </Link>
@@ -193,16 +193,16 @@ export function SiteFooter() {
         </div>
 
         {/* Brand and legal */}
-        <div className="border-t border-[#e0e2d8] py-5 sm:py-6">
+        <div className="border-t border-border py-5 sm:py-6">
           <div className="flex justify-center">
             <Link
               href="/ar"
               aria-label="SOVA - الصفحة الرئيسية"
               dir="ltr"
-              className="text-4xl font-light tracking-[-0.07em] text-[#171813] transition-opacity hover:opacity-60 sm:text-5xl"
+              className="text-4xl font-light tracking-[-0.07em] text-foreground transition-opacity hover:opacity-60 sm:text-5xl"
             >
               SOVA
-              <span className="ml-1 text-xs tracking-normal sm:text-sm">
+              <span className="ml-1 text-xs tracking-normal text-[#8D9B83] sm:text-sm">
                 ®
               </span>
             </Link>
@@ -217,7 +217,7 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-[#d9dcd0] text-[#42463a] transition-all duration-200 hover:border-[#171813] hover:bg-[#171813] hover:text-white"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-all duration-200 hover:border-[#8D9B83] hover:bg-[#8D9B83] hover:text-white"
               >
                 <SocialIcon name={icon} />
               </a>
@@ -225,29 +225,29 @@ export function SiteFooter() {
           </div>
 
           {/* Legal links */}
-          <div className="mt-4 flex items-center justify-center gap-3 text-[11px] text-[#696c61]">
+          <div className="mt-4 flex items-center justify-center gap-3 text-[11px] text-muted-foreground">
             <Link
               href="/ar/privacy"
-              className="transition-colors hover:text-[#171813]"
+              className="transition-colors hover:text-[#8D9B83]"
             >
               الخصوصية
             </Link>
 
             <span
               aria-hidden="true"
-              className="h-1 w-1 rounded-full bg-[#a4a797]"
+              className="h-1 w-1 rounded-full bg-[#8D9B83]/70"
             />
 
             <Link
               href="/ar/terms"
-              className="transition-colors hover:text-[#171813]"
+              className="transition-colors hover:text-[#8D9B83]"
             >
               الشروط والأحكام
             </Link>
           </div>
 
           {/* Copyright */}
-          <p className="mt-3 text-center text-[10px] text-[#858879]">
+          <p className="mt-3 text-center text-[10px] text-muted-foreground">
             © {new Date().getFullYear()} استوديو SOVA — جميع الحقوق محفوظة
           </p>
         </div>

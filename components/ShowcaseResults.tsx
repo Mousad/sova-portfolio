@@ -3,7 +3,6 @@
 
 import { useEffect, useState } from "react";
 
-
 const designs = [
   {
     name: "Museum of Money",
@@ -49,7 +48,7 @@ const designs = [
 
 const collections = [
   {
-    query: "minimal  design",
+    query: "minimal design",
     designs: [
       designs[0],
       designs[1],
@@ -75,7 +74,7 @@ const collections = [
     ],
   },
   {
-    query: "premium website ",
+    query: "premium website",
     designs: [
       designs[6],
       designs[3],
@@ -88,7 +87,6 @@ const collections = [
     ],
   },
 ];
-
 
 export default function ShowcaseResults() {
   const [collectionIndex, setCollectionIndex] = useState(0);
@@ -132,7 +130,9 @@ export default function ShowcaseResults() {
         if (text.length > 0) {
           setText(text.slice(0, -1));
         } else {
-          setCollectionIndex((current) => (current + 1) % collections.length);
+          setCollectionIndex(
+            (current) => (current + 1) % collections.length
+          );
           setPhase("typing");
         }
       }
@@ -142,9 +142,9 @@ export default function ShowcaseResults() {
   }, [text, phase, collection]);
 
   return (
-    <div className="p-3 sm:p-6">
+    <div className="bg-card p-3 text-card-foreground transition-colors duration-300 sm:p-6">
       {/* Animated search */}
-      <div className="search-glow mb-5 flex items-center gap-3 rounded-xl border border-[#dfe3d5] bg-white px-4 py-3.5 sm:px-5 sm:py-4">
+      <div className="search-glow mb-5 flex items-center gap-3 rounded-xl border border-border bg-background px-4 py-3.5 transition-colors duration-300 sm:px-5 sm:py-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="19"
@@ -155,7 +155,7 @@ export default function ShowcaseResults() {
           strokeWidth="1.7"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="shrink-0 text-[#737c60]"
+          className="shrink-0 text-[#8D9B83]"
           aria-hidden="true"
         >
           <circle cx="11" cy="11" r="8" />
@@ -163,17 +163,18 @@ export default function ShowcaseResults() {
         </svg>
 
         <span
-          className="flex min-h-5 min-w-0 flex-1 items-center font-mono text-xs tracking-tight text-[#36372f] sm:text-sm"
+          className="flex min-h-5 min-w-0 flex-1 items-center font-mono text-xs tracking-tight text-foreground sm:text-sm"
           aria-label={text}
         >
           <span className="truncate">{text}</span>
-          <span className="search-cursor ml-0.5 inline-block h-4 w-px shrink-0 translate-y-0.5 bg-[#737c60]" />
+
+          <span className="search-cursor ml-0.5 inline-block h-4 w-px shrink-0 translate-y-0.5 bg-[#8D9B83]" />
         </span>
 
-        <span className="flex shrink-0 items-center gap-1.5 text-[9px] font-medium uppercase tracking-[0.12em] text-[#737c60] sm:text-[10px]">
+        <span className="flex shrink-0 items-center gap-1.5 text-[9px] font-medium uppercase tracking-[0.12em] text-[#8D9B83] sm:text-[10px]">
           <span className="relative flex size-1.5">
             <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#9ba58a] opacity-60" />
-            <span className="relative inline-flex size-1.5 rounded-full bg-[#737c60]" />
+            <span className="relative inline-flex size-1.5 rounded-full bg-[#8D9B83]" />
           </span>
           Curated
         </span>
@@ -195,38 +196,33 @@ export default function ShowcaseResults() {
           {collection.designs.map((design, index) => (
             <article
               key={`${collectionIndex}-${design.name}`}
-              className="design-card group min-w-0 overflow-hidden rounded-xl border border-[#e9e9e1] bg-white"
+              className="design-card group min-w-0 overflow-hidden rounded-xl border border-border bg-background transition-colors duration-300"
               style={{
                 animationDelay: `${index * 100}ms`,
               }}
             >
-              <div className="relative aspect-[3/6] overflow-hidden bg-[#eeeee8]">
+              <div className="relative aspect-[3/6] overflow-hidden bg-secondary">
                 <img
                   src={design.image}
                   alt={`${design.name} — ${design.category} website design`}
                   loading="lazy"
                   className="size-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.045]"
                 />
-
-                
-
-                
               </div>
-
-             
             </article>
           ))}
         </div>
       </div>
 
       {/* Results status */}
-      <div className="mt-5 flex items-center justify-between gap-3 border-t border-[#e5e5de] pt-4">
-        <p className="text-[10px] text-[#777970] sm:text-xs">
+      <div className="mt-5 flex items-center justify-between gap-3 border-t border-border pt-4 transition-colors duration-300">
+        <p className="text-[10px] text-muted-foreground sm:text-xs">
           A collection of visual ideas
         </p>
 
-        <div className="flex items-center gap-2 text-[10px] text-[#737c60] sm:text-xs">
-          <span className="size-1.5 rounded-full bg-[#737c60]" />
+        <div className="flex items-center gap-2 text-[10px] text-[#8D9B83] sm:text-xs">
+          <span className="size-1.5 rounded-full bg-[#8D9B83]" />
+
           <span>
             {showResults ? collection.designs.length : 0} selected references
           </span>
