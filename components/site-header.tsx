@@ -25,37 +25,38 @@ export function SiteHeader({
 
   return (
     <>
-      {/* Spacer: keeps page content below the fixed navbar */}
-      <div
-        aria-hidden="true"
-        className="h-[48px] sm:h-[72px]"
-      />
+      {/* مساحة تعويضية للهيدر الثابت */}
+      <div aria-hidden="true" className="h-[48px] sm:h-[72px]" />
 
-      {/* Fixed top navbar */}
+      {/* الهيدر الثابت */}
       <header className="site-header-glow fixed inset-x-0 top-0 z-50 border-b border-border bg-background/90 text-foreground backdrop-blur-xl transition-colors duration-300">
-        <div className="relative mx-auto flex h-[48px] items-center justify-between px-4 sm:h-[72px] sm:px-8 lg:max-w-[1440px] lg:px-12">
-          {/* Centered logo */}
+        {/* طبقة الضوء: خلف عناصر الهيدر */}
+        <div
+          aria-hidden="true"
+          className="site-spotlight pointer-events-none absolute inset-x-0 top-0"
+        />
+
+        <div className="relative z-10 mx-auto flex h-[48px] items-center justify-between px-4 sm:h-[72px] sm:px-8 lg:max-w-[1440px] lg:px-12">
+          {/* اللوقو */}
           <Link
             href={`/${locale}`}
             className="site-logo-light absolute left-1/2 flex -translate-x-1/2 items-center justify-center lg:static lg:translate-x-0"
             aria-label="SOVA - الصفحة الرئيسية"
           >
-            {/* Light theme logo */}
             <img
               src="/images/logo-light.jpg"
               alt="SOVA"
-              className="relative z-[1] h-10 w-auto max-w-[150px] object-contain dark:hidden sm:h-14 sm:max-w-[200px]"
+              className="relative z-[2] h-10 w-auto max-w-[150px] object-contain dark:hidden sm:h-14 sm:max-w-[200px]"
             />
 
-            {/* Dark theme logo */}
             <img
               src="/images/logo-lig.jpg"
               alt="SOVA"
-              className="relative z-[1] hidden h-10 w-auto max-w-[150px] object-contain dark:block sm:h-14 sm:max-w-[200px]"
+              className="relative z-[2] hidden h-10 w-auto max-w-[150px] object-contain dark:block sm:h-14 sm:max-w-[200px]"
             />
           </Link>
 
-          {/* Desktop navigation */}
+          {/* روابط الكمبيوتر */}
           <nav
             className="hidden items-center gap-7 lg:flex"
             aria-label="Main navigation"
@@ -71,7 +72,7 @@ export function SiteHeader({
             ))}
           </nav>
 
-          {/* Desktop actions */}
+          {/* أدوات الكمبيوتر */}
           <div className="hidden items-center gap-1 lg:flex">
             <ThemeToggle />
 
@@ -91,120 +92,97 @@ export function SiteHeader({
             >
               <ShoppingBag size={17} strokeWidth={1.5} />
               <span>السلة</span>
-              <span className="text-muted-foreground">
-                ({count})
-              </span>
+              <span className="text-muted-foreground">({count})</span>
             </Link>
           </div>
         </div>
       </header>
 
-      {/* Mobile bottom navigation */}
+      {/* شريط التنقل السفلي للموبايل */}
       <MobileNav locale={locale} />
 
-      {/* Mobile-only dark theme spotlight */}
       <style jsx global>{`
         .site-header-glow {
           isolation: isolate;
           overflow: visible;
         }
 
-        .site-logo-light {
-          isolation: isolate;
-          overflow: visible;
+        .site-spotlight {
+          display: none;
         }
 
-        /* No glow in light mode */
-        .site-logo-light::before,
-        .site-logo-light::after {
-          content: none;
-        }
+        /* الإضاءة للموبايل فقط وفي الوضع الداكن */
+        @media (max-width: 767px) {
+          .dark .site-spotlight {
+            display: block;
+            z-index: 0;
+            height: 1px;
+            overflow: visible;
+          }
 
-        /* Large triangular beam: dark mode, mobile/tablet only */
-        @media (max-width: 1023px) {
-          .dark .site-logo-light::after {
+          .dark .site-spotlight::before,
+          .dark .site-spotlight::after {
             content: "";
             position: absolute;
             display: block;
-            z-index: 0;
-
             left: 50%;
-            top: 12px;
-
-            width: 145vw;
-            max-width: 760px;
-            height: 440px;
-
             pointer-events: none;
-            transform: translateX(-50%) scaleY(0.6);
+            transform: translateX(-50%) scaleY(0.55);
             transform-origin: top center;
+            opacity: 0;
+            animation: sova-mobile-beam 1.4s ease-out 0.15s forwards;
+          }
 
+          /* الشعاع الخارجي العريض */
+          .dark .site-spotlight::after {
+            top: 24px;
+            width: 185vw;
+            max-width: 790px;
+            height: 490px;
             clip-path: polygon(
               46% 0%,
               54% 0%,
               100% 100%,
               0% 100%
             );
-
             background: linear-gradient(
               to bottom,
-              rgba(190, 215, 171, 0.48) 0%,
-              rgba(166, 190, 147, 0.32) 20%,
-              rgba(141, 155, 131, 0.18) 45%,
+              rgba(226, 234, 220, 0.48) 0%,
+              rgba(243, 251, 237, 0.32) 20%,
+              rgba(236, 248, 227, 0.18) 45%,
               rgba(141, 155, 131, 0.08) 70%,
               rgba(141, 155, 131, 0.02) 88%,
               transparent 100%
             );
-
             filter: blur(23px);
-            opacity: 0;
-
-            animation: sova-mobile-beam 1.4s ease-out 0.15s forwards;
           }
 
-          /* Brighter, narrower core of the spotlight */
-          .dark .site-logo-light::before {
-            content: "";
-            position: absolute;
-            display: block;
-            z-index: 0;
-
-            left: 50%;
-            top: 10px;
-
-            width: 240px;
-            height: 360px;
-
-            pointer-events: none;
-            transform: translateX(-50%) scaleY(0.6);
-            transform-origin: top center;
-
+          /* الشعاع الداخلي الأكثر سطوعاً */
+          .dark .site-spotlight::before {
+            top: 22px;
+            width: 330px;
+            height: 390px;
             clip-path: polygon(
               44% 0%,
               56% 0%,
               100% 100%,
               0% 100%
             );
-
             background: linear-gradient(
               to bottom,
-              rgba(205, 228, 188, 0.38) 0%,
+              rgba(234, 237, 231, 0.38) 0%,
               rgba(166, 190, 147, 0.22) 32%,
               rgba(141, 155, 131, 0.09) 68%,
               transparent 100%
             );
-
             filter: blur(25px);
-            opacity: 0;
-
-            animation: sova-mobile-beam 1.4s ease-out 0.15s forwards;
           }
         }
 
         @keyframes sova-mobile-beam {
           from {
             opacity: 0;
-            transform: translateX(-50%) scaleY(0.6);
+            transform: translateX(-50%) scaleY(0.55);
           }
 
           to {
@@ -214,8 +192,8 @@ export function SiteHeader({
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .dark .site-logo-light::before,
-          .dark .site-logo-light::after {
+          .dark .site-spotlight::before,
+          .dark .site-spotlight::after {
             animation: none;
             opacity: 1;
             transform: translateX(-50%) scaleY(1);
