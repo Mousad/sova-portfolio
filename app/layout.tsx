@@ -1,36 +1,25 @@
+
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import { CartProvider } from '@/components/cart-context'
 
 export const metadata: Metadata = {
-  title: 'استوديو نواة — تصميم رقمي بوجهة نظر',
-  description: 'استوديو مستقل للتصميم والتطوير الرقمي، يصنع مواقع ومنتجات رقمية مدروسة.',
-  generator: 'v0.app',
+  title: 'استوديو SOVA   الرقمي   ',
+  description:
+    'استوديو مستقل للتصميم والتطوير الرقمي، يصنع مواقع ومنتجات رقمية مدروسة.',
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: '/images/llogo-lig.jpg',
+    shortcut: '/images/logo-lig.jpg',
+    apple: '/images/logo-lig.jpg',
   },
 }
 
 export const viewport: Viewport = {
   colorScheme: 'light dark',
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
+    { media: '(prefers-color-scheme: light)', color: '#f8f7f2' },
+    { media: '(prefers-color-scheme: dark)', color: '#171816' },
   ],
 }
 

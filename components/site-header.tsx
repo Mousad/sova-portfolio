@@ -50,7 +50,7 @@ export function SiteHeader({
             />
 
             <img
-              src="/images/logo-lig.jpg"
+              src="/images/logo1-rem.png"
               alt="SOVA"
               className="relative z-[2] hidden h-10 w-auto max-w-[150px] object-contain dark:block sm:h-14 sm:max-w-[200px]"
             />
